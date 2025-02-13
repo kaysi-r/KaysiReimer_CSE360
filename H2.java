@@ -27,41 +27,32 @@ class Question {
     	//puts all questions into an ordered list 
     	//oldest questions first
         this.QuestionNumber = QuestionCounter++;
+	//put all answers to each question into its own array
+        //one array per question
+        this.answers = new ArrayList<>();    
         //text input for each question
         this.text = text;
         //set all resolutions to questions as not resolved upon posting
         this.resolved = false;
-        //put all answers to each question into its own array
-        //one array per question
-        this.answers = new ArrayList<>();
+        
     }
-
+    
+////////////////////////////////////////////////////
+    //all parts of a question: number, answers, text, resolutions
     public int getQuestionNumber() { 
-    	return QuestionNumber; 
-    	}
-    
-    
+    	return QuestionNumber; }
     public String getText() { 
-    	return text; 
-    }
-    
+    	return text; }
     public boolean isResolved() {
-    	return resolved; 
-    }
-    
-    public List<String> getAnswers() { 
-    	return answers;
-    }
-
-    
+    	return resolved; }
+    public List<String> getAnswers() {
+    	return answers; }
     public void addAnswer(String answer) {
-        answers.add(answer);
-    }
-
+        answers.add(answer);}
     public void markAsResolved() {
-        this.resolved = true;
-    }
+        this.resolved = true;}
 }
+////////////////////////////////////////////////////
 
 // Question and Answer System
 class QuestionAnswerSystem {
@@ -88,21 +79,21 @@ class QuestionAnswerSystem {
             
             switch (choice) {
                 case 1:
-                    askQuestion();
+                    askQuestion(); //see below
                     break;
                 case 2:
-                    answerQuestion();
+                    answerQuestion();  //see below
                     break;
                 case 3:
-                    viewQuestions();
+                    viewQuestions();  //see below
                     break;
                 case 4:
-                    markResolved();
+                    markResolved();  //see below
                     break;
                 case 5:
                     System.out.println("Logging Out ...");
-                    return;
-                default:
+                    return; //ends being able to do anything
+                default: //not option 1-5
                     System.out.println("Invalid choice, please try again.");
             }
         }
@@ -124,11 +115,11 @@ class QuestionAnswerSystem {
     private void viewQuestions() {
     	//Format questions
         for (Question quest : questions) {
-        	int count = 0;
+        	int count = 0; //set to 0 as immediate increase to 1 when counting questions
             System.out.println("#" + quest.getQuestionNumber() + ") Question = " + quest.getText() + " . . . " + (quest.isResolved() ? "QUESTION RESOLVED" : "QUESTION UNRESOLVED") + "!");
             for (String answer : quest.getAnswers()) {
             	++count;
-            	 
+            	 //format for displaying a multiple number of question answer responses
                 System.out.println("   Possible Answer " + count + ": " + answer);
                 
             }
@@ -141,13 +132,17 @@ class QuestionAnswerSystem {
         scanner.nextLine();
         
         for (Question quest : questions) {
+        	//goes through all questions
             if (quest.getQuestionNumber() == QuestionNumber) {
                 System.out.print("Enter your answer: ");
                 String answer = scanner.nextLine().trim();
+                //receive input
                 if (!answer.isEmpty()) {
+                	//if text line actually contains text
                 	quest.addAnswer(answer);
                     System.out.println("Answer has been added.");
                 } else {
+                	//when input contains no characters within/blank repsonse
                     System.out.println("Answer cannot be empty. Enter proper answer.");
                 }
                 return;
@@ -158,15 +153,19 @@ class QuestionAnswerSystem {
     }
 
     private void markResolved() {
-        System.out.print("Enter question ID to be mark as resolved: ");
+        System.out.print("Enter question to be mark as resolved: ");
+        //selects question from numbered list oldest to newest
         int QuestionNumber = scanner.nextInt();
         for (Question quest : questions) {
+        	//only access if valid question
             if (quest.getQuestionNumber() == QuestionNumber) {
+            	//sets resolution to true
             	quest.markAsResolved();
                 System.out.println("Question has been marked as resolved.");
                 return;
             }
         }
+        //Ex. choosing Question #9 when only 3 questions actually exist
         System.out.println("Question not found. Please enter a valid Question Number from the list.");
     }
 }
