@@ -1,9 +1,13 @@
 package questionAnswerEvaluationTestbed;
 
+/**
+ * This class automates testing for the QuestionAnswerEvaluator functionalities.
+ * It runs predefined test cases, checks outputs, and counts the number of tests passed or failed.
+ */
 public class QuestionAnswerTestingAutomation {
 
-    static int numPassed = 0;
-    static int numFailed = 0;
+    static int numPassed = 0; // Track number of passed tests
+    static int numFailed = 0; // Track number of failed tests
 
     public static void main(String[] args) {
 
@@ -32,6 +36,13 @@ public class QuestionAnswerTestingAutomation {
         System.out.println("Number of tests failed: " + numFailed);
     }
 
+    /**
+     * Performs a test case for asking questions and receiving potential answers.
+     * 
+     * @param testCase The test case number.
+     * @param inputText The input question or keyword.
+     * @param expectedPass Indicates whether the test is expected to pass.
+     */
     private static void performTestCase(int testCase, String inputText, boolean expectedPass) {
         System.out.println("Test case " + testCase);
         String result;
@@ -52,6 +63,9 @@ public class QuestionAnswerTestingAutomation {
         }
     }
 
+    /**
+     * Performs a test case for providing answers to questions.
+     */
     private static void performAnswerTest(int testCase, String question, String answer, boolean expectedPass) {
         System.out.println("Test case " + testCase + ": Provide Answer");
         String result = QuestionAnswerEvaluator.provideAnswer(question, answer);
@@ -65,6 +79,9 @@ public class QuestionAnswerTestingAutomation {
         }
     }
 
+    /**
+     * Performs a test case to highlight an answer and resolve a question.
+     */
     private static void performHighlightTest(int testCase, String question, String answer, boolean expectedPass) {
         System.out.println("Test case " + testCase + ": Highlight Answer and Resolve Question");
         String result = QuestionAnswerEvaluator.highlightAnswerAndResolveQuestion(question, answer);
@@ -78,3 +95,4 @@ public class QuestionAnswerTestingAutomation {
         }
     }
 }
+
